@@ -1,8 +1,10 @@
 # decclass
 Tool for decomposition C++ class/stuct to simple types using Clang.
 
-Usege: 
+Usage: 
+
 decclass <path-to-cxxfile> <aim-struct>
+
 Example:
 
 ```c++
