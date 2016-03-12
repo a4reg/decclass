@@ -24,7 +24,7 @@ public:
 
 private:
 
-    std::vector<CXXField> __recur_search(const CXXField &field);
+    std::vector<CXXField> __recur_search(const CXXField &field, std::string base);
 
 
 

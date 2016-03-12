@@ -10,19 +10,21 @@
 #include "StructExpander.h"
 
 
-std::vector<CXXField> StructExpander::__recur_search(const CXXField &field)
+std::vector<CXXField> StructExpander::__recur_search(const CXXField &field, std::string base)
 {
     std::vector<CXXField> fields;
     if (m_classes.find(field.type) == m_classes.end())
         return fields;
 
+    base += field.name + "_";
+
     for (auto f : m_classes[field.type]) {
         if (f.simpleType) {
-            f.name.insert(0, field.name + "_");
+            f.name.insert(0, base);
             fields.push_back(f);
         }
         else {
-            std::vector<CXXField> findCXXField = __recur_search(f);
+            std::vector<CXXField> findCXXField = __recur_search(f, base);
             fields.insert(fields.end(), findCXXField.begin(), findCXXField.end());
         }
     }
@@ -36,7 +38,7 @@ std::vector<CXXField> StructExpander::getSimpleStruct(const std::vector<CXXField
     for (auto f : fields) {
         if (f.simpleType) res.push_back(f);
         else  {
-            std::vector<CXXField> F = __recur_search(f);
+            std::vector<CXXField> F = __recur_search(f, "");
             res.insert(res.end(), F.begin(), F.end());
         }
     }
@@ -46,7 +48,7 @@ std::vector<CXXField> StructExpander::getSimpleStruct(const std::vector<CXXField
 
 void StructExpander::print(std::ostream &stream) {
     stream << "struct " + m_structName + "_plain {\n";
-    for (auto f : getSimpleStruct(m_classes[m_structName])) {
+    for (auto &f : getSimpleStruct(m_classes[m_structName])) {
         stream << "    " + f.type + " " + f.name + "; " + (f.simpleType ? "//simple" : "//not simple") + "\n";
     }
     stream << "}; //auto generate";

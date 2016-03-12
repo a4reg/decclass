@@ -16,7 +16,7 @@ struct model {
     core::vector3f pos[3];
     core::vector3f pos2[3];
     core::vector3f orient;
-    color::Colors c;
+    //color::Colors c;
     int t;
     struct view {
         core::vector3f abc;
