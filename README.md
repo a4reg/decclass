@@ -3,7 +3,9 @@ Tool for decomposition C++ class/stuct to simple types using Clang.
 
 Usage: 
 
+```
 decclass <path-to-cxxfile> <aim-struct>
+```
 
 Example:
 
