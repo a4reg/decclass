@@ -4,7 +4,9 @@
 
 class N {};
 
-enum { N=55 };
+enum {
+    N = 2
+};
 
 // !!! always #pragma pack(1)
 
@@ -23,6 +25,18 @@ struct model {
     } viewM,viewP[N+3];
 };
 
+
+struct model2 {
+    core::vector3f pos[3];
+
+    core::vector3f orient;
+
+    int t;
+
+    struct view {
+        core::vector3f abc;
+    } viewM, viewP[N + 3];
+};
 
 
 

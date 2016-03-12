@@ -34,8 +34,9 @@ namespace core {
 ``` 
 
 must be print:
-```c
-struct model2_plain {
+
+```c++
+struct model_plain {
     float pos_0_x; //simple
     float pos_0_y; //simple
     float pos_0_z; //simple
@@ -49,25 +50,23 @@ struct model2_plain {
     float orient_y; //simple
     float orient_z; //simple
     int t; //simple
-    float abc_x; //simple
-    float abc_y; //simple
-    float abc_z; //simple
-    float abc_x; //simple
-    float abc_y; //simple
-    float abc_z; //simple
-    float abc_x; //simple
-    float abc_y; //simple
-    float abc_z; //simple
-    float abc_x; //simple
-    float abc_y; //simple
-    float abc_z; //simple
-    float abc_x; //simple
-    float abc_y; //simple
-    float abc_z; //simple
-    float abc_x; //simple
-    float abc_y; //simple
-    float abc_z; //simple
+    float viewM_abc_x; //simple
+    float viewM_abc_y; //simple
+    float viewM_abc_z; //simple
+    float viewP_0_abc_x; //simple
+    float viewP_0_abc_y; //simple
+    float viewP_0_abc_z; //simple
+    float viewP_1_abc_x; //simple
+    float viewP_1_abc_y; //simple
+    float viewP_1_abc_z; //simple
+    float viewP_2_abc_x; //simple
+    float viewP_2_abc_y; //simple
+    float viewP_2_abc_z; //simple
+    float viewP_3_abc_x; //simple
+    float viewP_3_abc_y; //simple
+    float viewP_3_abc_z; //simple
+    float viewP_4_abc_x; //simple
+    float viewP_4_abc_y; //simple
+    float viewP_4_abc_z; //simple
 }; //auto generate
 ```
-
-
