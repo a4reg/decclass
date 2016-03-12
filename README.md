@@ -1,5 +1,5 @@
 # decclass
-Tool for decomposition C++ class/stuct to simple types
+Tool for decomposition C++ class/stuct to simple types using Clang.
 
 Example:
 
