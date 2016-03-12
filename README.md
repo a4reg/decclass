@@ -19,6 +19,18 @@ struct model {
         core::vector3f abc;
     } viewM,viewP[N+3];
 };
+
+//vector3f.h
+namespace core {
+    class vector3f {
+    public:
+        vector3f();
+
+        vector3f operator+(vector3f);
+
+        float x, y, z;
+    };
+}
 ``` 
 
 must be print:
