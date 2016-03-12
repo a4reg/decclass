@@ -5,12 +5,20 @@
 #include <iostream>
 #include "StructExpander.h"
 
+static void usage() {
+    std::cout << R"(decclass <path-to-cxx-file> <aim-struct>)" << std::endl;
+}
+
 int main(int argc, char **argv)
 {
     StructExpander expander;
-    if (argc == 2)
-        expander.expand("/home/nikitas/Repos/decclass/tests/input.cpp", argv[1]);
-    //expander.debug_print(std::cout);
+    if (argc == 3)
+        expander.expand(argv[1], argv[2]);
+    else {
+        usage();
+        return 0;
+    }
+    expander.debug_print(std::clog);
     expander.print(std::cout);
     return 0;
 }

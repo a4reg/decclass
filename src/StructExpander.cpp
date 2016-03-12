@@ -47,11 +47,12 @@ std::vector<CXXField> StructExpander::getSimpleStruct(const std::vector<CXXField
 
 
 void StructExpander::print(std::ostream &stream) {
+    stream << "#pragma once\n#pragma pack(push,1))\n";
     stream << "struct " + m_structName + "_plain {\n";
     for (auto &f : getSimpleStruct(m_classes[m_structName])) {
-        stream << "    " + f.type + " " + f.name + "; " + (f.simpleType ? "//simple" : "//not simple") + "\n";
+        stream << f;
     }
-    stream << "}; //auto generate";
+    stream << "}; //auto generate\n#pragma pack(pop)";
 
 }
 

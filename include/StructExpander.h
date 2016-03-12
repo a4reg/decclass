@@ -26,9 +26,6 @@ private:
 
     std::vector<CXXField> __recur_search(const CXXField &field, std::string base);
 
-
-
-
     std::map < std::string, std::vector<CXXField> > m_classes;
     std::string m_file;
     std::string m_structName;
