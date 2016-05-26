@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 2.8)
 project(decclass)
 
-link_directories(${CLANG_DIR}/lib)
-include_directories(${CLANG_DIR}/include)
+find_package(LLVM REQUIRED)
 
 add_definitions(
+        -std=c++11
+        -fno-rtti
         -D__STDC_LIMIT_MACROS
         -D__STDC_CONSTANT_MACROS
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti -std=c++11")
 
-set(CLANG_LIBS
+set(Clang_LIBS
         clangFrontend
         clangSerialization
         clangDriver
@@ -23,7 +23,6 @@ set(CLANG_LIBS
         clangEdit
         clangLex
         clangTooling
-
         LLVMX86AsmParser # MC, MCParser, Support, X86Desc, X86Info
         LLVMX86Desc # MC, Support, X86AsmPrinter, X86Info
         LLVMX86AsmPrinter # MC, Support, X86Utils
@@ -42,8 +41,7 @@ set(CLANG_LIBS
         LLVMObject # BitReader, Core, Support
         LLVMBitReader # Core, Support
         LLVMCore # Support
-        LLVMSupport
-        pthread z dl tinfo)
+        LLVMSupport)
 
 set(HEADER_FILES
         include/CXXField.h
@@ -59,4 +57,4 @@ set(SOURCE_FILES
 
 include_directories(include)
 add_executable(decclass ${HEADER_FILES} ${SOURCE_FILES})
-target_link_libraries(decclass ${CLANG_LIBS})
+target_link_libraries(decclass ${Clang_LIBS})
