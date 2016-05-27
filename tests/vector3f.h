@@ -7,7 +7,12 @@ namespace core {
 
         vector3f operator+(vector3f);
 
-        float x, y, z;
+        union {
+            float coord[3];
+            struct {
+                float x, y, z;
+            };
+        };
     };
 }
 

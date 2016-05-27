@@ -48,21 +48,15 @@ std::vector<CXXField> FieldFinder::__get_fields(clang::CXXRecordDecl *decl) {
             field.type = __replaceAnonUoS(type_) + "::__anoninos_union_or_struct__";
             fields.push_back(field);
             continue;
-//            it->getCanonicalDecl();
-
-//            std::cout << clang::dyn_cast<clang::CXXRecordDecl>(it->getCanonicalDecl())->getNameAsString() << std::endl;
-//            __anon_st_or_un_worker(clang::dyn_cast<clang::CXXRecordDecl>(it->getCanonicalDecl()),
-//                                   fields, it, base);
-            //        std::cout << max_sizeof;
         }
 
         if (it->getType().getTypePtr()->isConstantArrayType()) {
-            field = getArrayField(fields, it, field);
+            field = getArrayField(fields, it, field, decl->getASTContext());
         }
         else {
             field.type = it->getType().getCanonicalType().getUnqualifiedType().getAsString();
             field.name = it->getName().str();
-            field.simpleType = it->getType().isCanonical();
+            field.simpleType = it->getType().isTrivialType(decl->getASTContext());
             if (!field.simpleType)
                 __del_keyword(field.type);
 
@@ -99,7 +93,8 @@ void FieldFinder::__anon_st_or_un_worker(const clang::CXXRecordDecl *decl, std::
                 cxxField.name = max_sizeof_decl->getNameAsString() + "_" + std::__1::to_string(i);
                 cxxField.simpleType = true;
 
-                std::string type_ = base;
+                std::string type_ = arrayType->getElementType().getCanonicalType().
+                        getCanonicalType().getUnqualifiedType().getAsString();
                 cxxField.type = __replaceAnonUoS(type_);
                 fields.push_back(cxxField);
             }
@@ -107,7 +102,7 @@ void FieldFinder::__anon_st_or_un_worker(const clang::CXXRecordDecl *decl, std::
 }
 
 CXXField &FieldFinder::getArrayField(std::vector<CXXField> &fields, const clang::RecordDecl::field_iterator &it,
-                                     CXXField &field) {
+                                     CXXField &field, const clang::ASTContext &context) {
     auto arrayType = llvm::dyn_cast<clang::ConstantArrayType>(it->getType().getTypePtr());
     //че это? почему нельзя было сразу toInt?)
     int count = (int) (arrayType->getSize()).roundToDouble();
@@ -115,7 +110,8 @@ CXXField &FieldFinder::getArrayField(std::vector<CXXField> &fields, const clang:
                 field.name = it->getName().str() + "_" + std::__1::to_string(i);
                 field.type = arrayType->getElementType().getCanonicalType().
                         getCanonicalType().getUnqualifiedType().getAsString();
-                field.simpleType = arrayType->getElementType().isCanonical();
+                field.simpleType = arrayType->getElementType().isTrivialType(
+                        const_cast<clang::ASTContext&>(context));
                 if (!field.simpleType)
                     __del_keyword(field.type);
                 fields.push_back(field);
@@ -131,7 +127,6 @@ bool FieldFinder::VisitCXXRecordDecl(clang::CXXRecordDecl *decl) {
     name = __replaceAnonUoS(name);
 
     m_classes[name] = __get_fields(decl);
-
 
     return true;
 }

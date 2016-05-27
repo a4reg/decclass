@@ -23,7 +23,8 @@ private:
     static std::set<std::string> m_keywords;
     std::map < std::string, std::vector<CXXField> > &m_classes;
 
-    CXXField &getArrayField(std::vector<CXXField> &fields, const clang::RecordDecl::field_iterator &it, CXXField &field);
+    CXXField &getArrayField(std::vector<CXXField> &fields, const clang::RecordDecl::field_iterator &it,
+                            CXXField &field, const clang::ASTContext &context);
 
     void __anon_st_or_un_worker(const clang::CXXRecordDecl *decl, std::vector<CXXField> &fields,
                                 clang::RecordDecl::field_iterator &it, const std::string &base) const;

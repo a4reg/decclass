@@ -77,7 +77,7 @@ void StructExpander::debug_print(std::ostream &stream)
     for (auto _class: m_classes) {
         std::cout << _class.first << ";\n";
         for (auto field : _class.second)
-            std::cout << "     (" << field.name << " -> " << field.type << ")\n";
+            std::cout << "     (" << field.name << " -> " << field.type << ")" + std::to_string(field.simpleType) << std::endl;
     }
 
 }
