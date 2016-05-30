@@ -56,7 +56,7 @@ std::vector<CXXField> FieldFinder::__get_fields(clang::CXXRecordDecl *decl) {
         else {
             field.type = it->getType().getCanonicalType().getUnqualifiedType().getAsString();
             field.name = it->getName().str();
-            field.simpleType = it->getType().isTrivialType(decl->getASTContext());
+            field.simpleType = it->getType().isTrivialType(decl->getASTContext()) && it->getType().isCanonical();
             if (!field.simpleType)
                 __del_keyword(field.type);
 

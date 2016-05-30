@@ -9,6 +9,7 @@ static void usage() {
     std::cout << R"(decclass <path-to-cxx-file> <aim-struct>)" << std::endl;
 }
 
+
 int main(int argc, char **argv)
 {
     StructExpander expander;
